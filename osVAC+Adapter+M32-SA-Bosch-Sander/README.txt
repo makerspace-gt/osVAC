@@ -1,0 +1,1 @@
+osVAC Adapter M32-SA01 (Bosch Sander) by Hobbyhimmel on Thingiverse: https://www.thingiverse.com/thing:4562802
