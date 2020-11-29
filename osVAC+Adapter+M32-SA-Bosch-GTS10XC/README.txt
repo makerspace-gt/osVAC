@@ -1,0 +1,1 @@
+osVAC M32 Bosch GTS10XC Adapter by loddaman on Thingiverse: https://www.thingiverse.com/thing:4593354
