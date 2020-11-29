@@ -1,0 +1,1 @@
+osVAC Vaccum Adapter for Bosch GFF 22A by loddaman on Thingiverse: https://www.thingiverse.com/thing:4593030
