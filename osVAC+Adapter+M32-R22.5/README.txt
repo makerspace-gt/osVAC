@@ -1,0 +1,1 @@
+osVAC Adapter M32-R22.5 by Friedhelm1962 on Thingiverse: https://www.thingiverse.com/thing:4592424
