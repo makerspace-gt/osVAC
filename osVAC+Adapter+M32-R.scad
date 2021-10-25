@@ -1,5 +1,3 @@
-use <write/write.scad>
-
 // must be greater 10
 inner_diameter      = 37.5;
 // must be greater Inner Diameter with respect to Draft Angle
@@ -18,6 +16,9 @@ nameplate_diameter  = 50.0;
 nameplate_length    = 17.0;
 text_front          = str("M32-R", inner_diameter, "/", outer_diameter);
 text_back           = "ossso.de";
+text_heigth         =  6.5;
+text_font           = "Liberation Mono:style=Bold";
+text_width          = text_heigth*0.82; // ~measured
 
 nose_thickness      =  2.0;
 nose_width          = 10.0;
@@ -61,11 +62,11 @@ module adapter(){
   difference(){
     profile();
     
-    if(!$preview){
-      nameplate(text=text_front);
-      nameplate(text=text_back, eastwest=180);
-    }
+    nameplate(text=text_front);
+    nameplate(text=text_back, eastwest=180);
+
   }
+  
   for (i = [1:3])
   rotate([0,0,i*120])
   nose();
@@ -139,15 +140,20 @@ module nose(){
 }
 
 module nameplate(text="", eastwest=0){
-  rotate([0,0,eastwest])
-  writesphere(
-    text,[0,0,(y3+y4)/2],x3,
-    h=(y4-y3)/2,
-    t=1,
-    font="orbitron.dxf"
-  );
+  //  inspired by https://www.openscad.info/index.php/2020/07/02/cylindrical-text-the-easy-way/
+  RADIUS = x3;
+  chars = len(text);
+  ARC_ANGLE=180*chars*text_width/RADIUS/PI;
+    
+  for(i=[0:1:chars]){
+    rotate([0,0,eastwest+i*ARC_ANGLE/chars-ARC_ANGLE/2]){
+      translate( [RADIUS-1,0,(y3+y4-text_heigth)/2])
+        rotate([90,0,90])
+          linear_extrude(1)
+            text(text[i],size=text_heigth,halign="center", font=text_font);
+    }
+  }
 }
-
 
 // use <Round-Anything/polyround.scad> ///////////////////////////////////////////
   // Library: round-anything
