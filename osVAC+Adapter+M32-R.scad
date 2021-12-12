@@ -2,15 +2,20 @@
 inner_diameter      = 37.5;
 // must be greater Inner Diameter with respect to Draft Angle
 outer_diameter      = 42.0;
-// must be greater 10
-height              = 30.0;
 // must be grater 0
 draft_angle         =  2.0;
+// must be greater 10
+d1                 =  37.5;
+// must be greater 10
+d2                 =  39.0;
+// must be greater 10
+height              = 30.0;
+// 
+wall_thickness      =  3.0;
 
 /* [Hidden] */
 nominal_diameter    = 32.0;
 fitting_length      = 30.0;
-wall_thickness      =  3.0;
 
 nameplate_diameter  = 50.0;
 nameplate_length    = 17.0;
