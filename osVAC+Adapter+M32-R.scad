@@ -107,40 +107,42 @@ module profile(){
   }
 }
 
-module nose(){
-  dy = nose_thickness/tan(overhang);
+module nose() {
+  dy = nose_thickness / tan(overhang);
 
-  nx0 = x1 - radii;
+  nx0 = x1;
   nx1 = nx0;
-  nx2 = x1;
+  nx2 = nx0 + nose_thickness;
   nx3 = nx2;
-  nx4 = x1 + nose_thickness;
-  nx5 = nx4;
 
-  ny0 = 0;
-  ny1 = ny0 + nose_length/2 + radii;
-  ny2 = ny1;
-  ny3 = nose_length/2;
-  ny4 = ny3  - dy;
-  ny5 = ny0;
+  ny0 = nose_offset;
+  ny1 = ny0 + nose_length;
+  ny2 = ny1 - dy;
+  ny3 = ny0 + dy;
 
-  radiiPoints=[
-    [nx0, ny0, 0],
-    [nx1, ny1, 0],
-    [nx2, ny2, 0],
-    [nx3, ny3, radii],
-    [nx4, ny4, radii],
-    [nx5, ny5, 0]
+  points=[
+    [nx0, ny0],
+    [nx1, ny1],
+    [nx2, ny2],
+    [nx3, ny3]
   ];
-  
-  intersection(){
-    rotate_extrude()
-    translate([0,nose_offset + nose_length/2])
-    polygon(polyRound(mirrorPoints(radiiPoints)));
 
-    translate([nx4/2,0])
-    linear_extrude(ny1+nose_offset + nose_length/2)
-    square([nx4, nose_width], center=true);
+  intersection() {
+
+    rotate_extrude( angle = 180 )
+    difference() {
+        polygon( points = points );
+
+        // chamfers
+        for( i = [2, 3])
+        translate( points[i] )
+        rotate( ( i % 2 ? -1 : 1 ) * (90 - overhang) )
+        square( [chamfer, 2*chamfer], center = true );
+    }
+
+    translate( [0, nx2 / 2] )
+    linear_extrude( ny1 )
+    square( [nose_width, nx2], center = true );
   }
 }
 
